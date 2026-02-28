@@ -246,7 +246,6 @@ struct DeskCardView: View {
                     .font(.headline)
                     .foregroundColor(desk.is_active ? .primary : .gray)
                 
-                // AICI AM REPARAT: Readucem textul verde "Disponibil"
                 if desk.is_active {
                     HStack(spacing: 4) {
                         Image(systemName: "checkmark.circle.fill")
@@ -256,7 +255,6 @@ struct DeskCardView: View {
                     }
                     .foregroundColor(.green)
                 } else {
-                    // Și păstrăm textul roșu pentru mentenanță
                     HStack(spacing: 4) {
                         Image(systemName: "wrench.and.screwdriver.fill")
                             .font(.caption)
