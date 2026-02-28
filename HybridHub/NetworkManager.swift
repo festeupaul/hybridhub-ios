@@ -11,6 +11,7 @@ import Combine
 class NetworkManager: ObservableObject {
     
     @Published var desks: [Desk] = []
+    @Published var reservations: [Reservation] = []
     
     func fetchDesks() {
         guard let url = URL(string: "https://hybridhub-backend.onrender.com/api/desks") else {
@@ -37,6 +38,7 @@ class NetworkManager: ObservableObject {
             }
         }.resume()
     }
+    
     func bookDesk(deskId: Int, date: String, completion: @escaping (Bool, String) -> Void) {
         
         guard let url = URL(string: "https://hybridhub-backend.onrender.com/api/reservations") else { return }
@@ -70,5 +72,21 @@ class NetworkManager: ObservableObject {
             }
         }.resume()
     }
+    
+    func fetchReservations() {
+         guard let url = URL(string: "https://hybridhub-backend.onrender.com/api/reservations") else { return }
+
+         URLSession.shared.dataTask(with: url) { data, response, error in
+             guard let data = data else { return }
+             do {
+                 let decoded = try JSONDecoder().decode([Reservation].self, from: data)
+                 DispatchQueue.main.async {
+                     self.reservations = decoded
+                 }
+             } catch {
+                 print("Eroare la descărcarea rezervărilor.")
+             }
+         }.resume()
+     }
 }
 

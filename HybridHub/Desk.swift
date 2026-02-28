@@ -23,3 +23,11 @@ struct Desk: Identifiable, Codable {
         case facilities = "facilities"
     }
 }
+
+struct Reservation: Identifiable, Codable {
+    let reservation_id: Int
+    let desk_id: Int
+    let reservation_date: String
+    
+    var id: Int { reservation_id }
+}
